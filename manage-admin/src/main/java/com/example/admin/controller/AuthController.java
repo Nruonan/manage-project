@@ -4,6 +4,7 @@ import cn.dev33.satoken.util.SaResult;
 import com.example.admin.common.result.Result;
 import com.example.admin.common.result.Results;
 import com.example.admin.dto.req.UserLoginReqDTO;
+import com.example.admin.dto.req.UserRegisterReqDTO;
 import com.example.admin.service.AuthService;
 import com.example.admin.service.UserService;
 import jakarta.annotation.Resource;

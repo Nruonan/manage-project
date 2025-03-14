@@ -1,9 +1,16 @@
 package com.example.admin.service.impl;
 
+import cn.dev33.satoken.secure.SaBase64Util;
 import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.digest.HMac;
+import cn.hutool.crypto.digest.HmacAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.example.admin.common.exception.ServiceException;
 import com.example.admin.dto.req.UserLoginReqDTO;
 import com.example.admin.dto.resp.UserRespDTO;
@@ -26,8 +33,9 @@ public class AuthServiceImpl implements AuthService {
         if (user == null) {
             throw new ServiceException("用户不存在！");
         }
-        if (!user.getPassword().equals(requestParam.getPassword())) {
-            throw new ServiceException("用户密码！");
+        String password = SaBase64Util.decode(user.getPassword());
+        if (!password.equals(requestParam.getPassword())) {
+            throw new ServiceException("用户密码错误");
         }else{
             StpUtil.login(user.getId());
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();

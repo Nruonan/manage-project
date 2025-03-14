@@ -2,6 +2,7 @@ package com.example.admin.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.admin.dto.req.UserRegisterReqDTO;
 import com.example.admin.dto.resp.UserRespDTO;
 import com.example.admin.entity.UserDO;
 
@@ -13,4 +14,6 @@ import com.example.admin.entity.UserDO;
 public interface UserService extends IService<UserDO> {
 
     public UserRespDTO findUserByNameOrEmailOrPhone(String text);
+
+    void register(UserRegisterReqDTO requestParam);
 }
